@@ -2,7 +2,7 @@
 
 namespace BookStore.Data.Entities;
 
-public class Publisher : EntityBase
+public class Publisher : EntityBase,INameEntity
 {
     public string Name { get; set; } = "";
     public string Email { get; set; } = "";

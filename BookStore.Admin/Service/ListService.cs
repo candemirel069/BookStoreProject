@@ -13,16 +13,27 @@ namespace BookStore.Admin.Service
             _context = context;
         }
 
-        public SelectList GetSelectList<TEntity>(object? selectedItem = null) where TEntity : class, INameEntity
-        {
-            var data = _context.Set<TEntity>().Select(x => new { x.Id, x.Name }).OrderBy(x => x.Name);
-
-            return new SelectList(data, "Id", "Name", selectedItem);
-        }
-
         public SelectList GetBookList(object? selectedItem = null)
         {
             return new SelectList(_context.Books.OrderBy(it => it.Name), "Id", "Name", selectedItem);
+        }
+
+        public SelectList GetSelectList<TEntity>(object? selectedItem = null) where TEntity : class, INameEntity
+        {
+            var data = _context.Set<TEntity>().Select(x => new { x.Id, x.Name }).OrderBy(x => x.Name).ToList();
+
+            var sl= new SelectList(data, "Id", "Name", selectedItem);
+            return sl;
+        }
+
+
+
+        public SelectList GetPersonSelectList<TEntity>(object? selectedItem = null) where TEntity : PersonBase
+        {
+            var data = _context.Set<TEntity>().OrderBy(x => x.Name).Select(x => new { x.Id, x.FullName }).ToList();
+
+            var sl= new SelectList(data, "Id", "FullName", selectedItem);
+            return sl;
         }
 
     }

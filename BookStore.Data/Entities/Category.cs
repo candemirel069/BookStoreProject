@@ -2,7 +2,7 @@
 
 namespace BookStore.Data.Entities;
 
-public class Category: EntityBase
+public class Category: EntityBase,INameEntity
 {
     public string Name { get; set; } = "";
     public string? Description { get; set; } = "";
