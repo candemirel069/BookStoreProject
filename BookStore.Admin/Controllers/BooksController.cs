@@ -7,25 +7,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Data.Entities;
 using BookStore.Admin.Models;
+using BookStore.Admin.Service;
 
 namespace BookStore.Admin.Controllers
 {
     public class BooksController : Controller
     {
         private readonly BookStoreContext _context;
+        private readonly IListService _listService;
 
-        public BooksController(BookStoreContext context)
+        public BooksController(BookStoreContext context, IListService listService)
         {
             _context = context;
+            _listService = listService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(BookSearchModel? model = null)
         {
-            var lst_book = from bk in _context.Books
+            model = model ?? new BookSearchModel();
+
+            var bookList = from bk in _context.Books
                           .Include(it => it.Author)
                           .Include(it => it.Translator)
                           .Include(it => it.Publisher)
                           .Include(it => it.Category)
+                           where
+                             (String.IsNullOrEmpty(model.Name) || bk.Name.Contains(model.Name))
+                              && (!model.AuthorId.HasValue || bk.AuthorId == model.AuthorId)
+                              && (!model.CategoryId.HasValue || bk.CategoryId == model.CategoryId)
+                              && (!model.PublisherId.HasValue || bk.PublisherId == model.PublisherId)
                            select new BookViewModel()
                            {
                                Id = bk.Id,
@@ -36,43 +46,28 @@ namespace BookStore.Admin.Controllers
                                Publisher = bk.Publisher.Name,
                                Category = bk.Category.Name
                            };
-            return View(await lst_book.ToListAsync());
-
+            return View(await bookList.Take(5).ToListAsync());
         }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Books == null)
-            {
-                return NotFound();
-            }
-
-            var book = await _context.Books
-                .Include(b => b.Author)
-             //   .Include(b => b.Campaign)
-                .Include(b => b.Category)
-                .Include(b => b.Publisher)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            return View(book);
-        }
+       
 
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "FullName");
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Name");
-            ViewData["TranslatorId"] = new SelectList(_context.Translators, "Id", "FullName");
+            //ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "FullName");
+            //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            //ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Name");
+            //ViewData["TranslatorId"] = new SelectList(_context.Translators, "Id", "FullName");
+
+            ViewData["AuthorId"] = _listService.GetPersonSelectList<Author>();
+            ViewData["TranslatorId"] = _listService.GetPersonSelectList<Translator>();
+            ViewData["CategoryId"] = _listService.GetSelectList<Category>();
+            ViewData["PublisherId"] = _listService.GetSelectList<Publisher>();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Book book)
+        public async Task<IActionResult> Create(Book book)
         {
             if (ModelState.IsValid)
             {
@@ -80,10 +75,16 @@ namespace BookStore.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "FullName", book.AuthorId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", book.CategoryId);
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Name", book.PublisherId);
-            ViewData["TranslatorId"] = new SelectList(_context.Translators, "Id", "FullName", book.TranslatorId);
+
+            //ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "FullName", book.AuthorId);
+            //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", book.CategoryId);
+            //ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Name", book.PublisherId);
+            //ViewData["TranslatorId"] = new SelectList(_context.Translators, "Id", "FullName", book.TranslatorId);
+
+            ViewData["AuthorId"] = _listService.GetPersonSelectList<Author>(book.Author);
+            ViewData["TranslatorId"] = _listService.GetPersonSelectList<Translator>(book.Translator);
+            ViewData["CategoryId"] = _listService.GetSelectList<Category>(book.Category);
+            ViewData["PublisherId"] = _listService.GetSelectList<Publisher>(book.Publisher);
             return View(book);
         }
 
@@ -154,7 +155,7 @@ namespace BookStore.Admin.Controllers
 
             var book = await _context.Books
                 .Include(b => b.Author)
-               // .Include(b => b.Campaign)
+                // .Include(b => b.Campaign)
                 .Include(b => b.Category)
                 .Include(b => b.Publisher)
                 .FirstOrDefaultAsync(m => m.Id == id);

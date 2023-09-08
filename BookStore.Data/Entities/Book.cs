@@ -11,19 +11,19 @@ public class Book : EntityBase,INameEntity
 
     [Display(Name = "Category")]
     public int CategoryId { get; set; }
-    public virtual Category Category { get; set; }
+    public virtual Category? Category { get; set; }
   
     [Display(Name = "Author")]
     public int? AuthorId { get; set; }
-    public virtual Author Author { get; set; }
+    public virtual Author? Author { get; set; }
 
     [Display(Name = "Translator")]
     public int? TranslatorId { get; set; }
-    public virtual Translator Translator { get; set; }
+    public virtual Translator? Translator { get; set; }
 
     [Display(Name = "Publisher")]
     public int PublisherId { get; set; }
-    public virtual Publisher Publisher { get; set; }
+    public virtual Publisher? Publisher { get; set; }
 
     public DateTime CreatedDate { get; set; }
 
@@ -33,5 +33,5 @@ public class Book : EntityBase,INameEntity
     [ScaffoldColumn(false)]
     public int? CampaignId { get; set; }
     [ScaffoldColumn(false)]
-    public virtual Campaign Campaign { get; set; }
+    public virtual Campaign? Campaign { get; set; }
 }
