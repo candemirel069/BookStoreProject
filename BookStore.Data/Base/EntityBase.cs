@@ -20,7 +20,6 @@ namespace BookStore.Data.Base
     }
     
     public class EntityBase : EntityBase<int> { }
-
     
     public interface INameEntity : IEntityBase
     {

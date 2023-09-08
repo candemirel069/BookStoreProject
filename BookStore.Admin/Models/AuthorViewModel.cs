@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Admin.Models
 {
-    public class TranslatorViewModel
+    public class AuthorViewModel
     {
         public int Id { get; set; }
 
@@ -15,8 +15,5 @@ namespace BookStore.Admin.Models
 
         [Display(Name = "Kitap sayısı")]
         public int BookCount { get; set; }
-
-        [Display(Name = "Diller")]
-        public int Langs { get; set; }
     }
 }

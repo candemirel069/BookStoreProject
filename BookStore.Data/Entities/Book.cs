@@ -6,26 +6,27 @@ namespace BookStore.Data.Entities;
 
 public class Book : EntityBase,INameEntity
 {
+    [Display(Name = "Adı")]
     public string Name { get; set; } = "";
+
+    [Display(Name = "Sayfa sayısı")]
     public int? PageCount { get; set; }
 
-    [Display(Name = "Category")]
+    [Display(Name = "Kategori")]
     public int CategoryId { get; set; }
     public virtual Category? Category { get; set; }
   
-    [Display(Name = "Author")]
+    [Display(Name = "Yazar")]
     public int? AuthorId { get; set; }
     public virtual Author? Author { get; set; }
 
-    [Display(Name = "Translator")]
+    [Display(Name = "Çevirmen")]
     public int? TranslatorId { get; set; }
     public virtual Translator? Translator { get; set; }
 
-    [Display(Name = "Publisher")]
+    [Display(Name = "Yayıncı")]
     public int PublisherId { get; set; }
     public virtual Publisher? Publisher { get; set; }
-
-    public DateTime CreatedDate { get; set; }
 
     public int? Star { get; set; }
     public decimal? Price { get; set; }

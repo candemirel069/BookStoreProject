@@ -46,7 +46,7 @@ namespace BookStore.Admin.Controllers
                                Publisher = bk.Publisher.Name,
                                Category = bk.Category.Name
                            };
-            return View(await bookList.Take(5).ToListAsync());
+            return View(await bookList.OrderBy(x=>x.Name).Take(5).ToListAsync());
         }
 
        

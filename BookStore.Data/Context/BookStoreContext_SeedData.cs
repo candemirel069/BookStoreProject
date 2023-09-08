@@ -40,14 +40,7 @@ public partial class BookStoreContext
             new Author { Id = 8, Name = "Oğuz", MiddleName = "", Surname = "Atay", EMail = "oa@email.com" });
     }
 
-    private static void SeedLangs(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Lang>().HasData(
-            new Lang { Id = 1, Name = "Türkçe", Code = "TR" },
-            new Lang { Id = 2, Name = "English", Code = "EN" },
-            new Lang { Id = 3, Name = "Dutch", Code = "DU" },
-            new Lang { Id = 4, Name = "Fransızca", Code = "FR" });
-    }
+  
 
     private static void SeedCities(ModelBuilder modelBuilder)
     {

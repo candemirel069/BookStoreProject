@@ -16,6 +16,4 @@ public class Address:EntityBase
     [Display(Name ="City")]
     public int CityId { get; set; }
     public virtual City City { get; set; }
-
-    public DateTime CreatedDate { get; set; } 
 }

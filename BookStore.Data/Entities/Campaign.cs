@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Data.Entities;
 
-public class Campaign : EntityBase
+public class Campaign : EntityBase,INameEntity
 {
     public string Name { get; set; } = "";
 
@@ -13,7 +13,5 @@ public class Campaign : EntityBase
     public bool IsActive { get; set; } = true;
     public int? DiscountRate { get; set; }
 
-    public virtual List<Book> Books { get; set; }
-
-    public DateTime CreatedDate { get; set; }
+    public virtual List<Book>? Books { get; set; } 
 }

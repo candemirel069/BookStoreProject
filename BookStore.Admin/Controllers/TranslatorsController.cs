@@ -23,32 +23,15 @@ namespace BookStore.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var bookStoreContext = from translator in _context.Translators.Include(x => x.Books)
+                                   orderby translator.Name
                                    select new TranslatorViewModel()
                                    {
                                        Id = translator.Id,
                                        FullName = translator.FullName,
                                        BookCount = translator.Books.Count(),
-                                       Email = translator.EMail
+                                       Email = translator.EMail??""
                                    };
             return View(await bookStoreContext.ToListAsync());
-        }
-
-        // GET: Translators/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Translators == null)
-            {
-                return NotFound();
-            }
-
-            var translator = await _context.Translators
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (translator == null)
-            {
-                return NotFound();
-            }
-
-            return View(translator);
         }
 
         public IActionResult Create()
@@ -58,7 +41,7 @@ namespace BookStore.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EMail,Name,MiddleName,Surname,Id,CreatedDate")] Translator translator)
+        public async Task<IActionResult> Create([Bind("EMail,Name,MiddleName,Surname,Id")] Translator translator)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +73,7 @@ namespace BookStore.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EMail,Name,MiddleName,Surname,Id,CreatedDate")] Translator translator)
+        public async Task<IActionResult> Edit(int id, [Bind("EMail,Name,MiddleName,Surname,Id")] Translator translator)
         {
             if (id != translator.Id)
             {

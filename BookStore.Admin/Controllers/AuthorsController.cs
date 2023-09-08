@@ -21,32 +21,16 @@ namespace BookStore.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var bookStoreContext = from aut in _context.Authors.Include(x => x.Books)
-                       select new AutorViewModel()
+            var authorList = from author in _context.Authors.Include(x => x.Books)
+                                   orderby author.Name
+                       select new AuthorViewModel()
                        {                           
-                           Id= aut.Id,
-                           FullName= aut.FullName,
-                           BookCount=aut.Books.Count(),
-                           Email= aut.EMail
+                           Id= author.Id,
+                           FullName= author.FullName,
+                           BookCount=author.Books.Count(),
+                           Email= author.EMail??""
                        };
-            return View(await bookStoreContext.ToListAsync());
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Authors == null)
-            {
-                return NotFound();
-            }
-
-            var author = await _context.Authors
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            return View(author);
+            return View(await authorList.ToListAsync());
         }
 
         // GET: Authors/Create

@@ -3,19 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStore.Data.Entities;
 
-public class City : EntityBase
+public class City : EntityBase,INameEntity
 {
     public int CityCode { get; set; }
     public string Name { get; set; }
 
     [NotMapped]
     public string DisplayName => CityCode + " - " + Name;
-    //public string DisplayName
-    //{
-    //    get { return Name + " " + CityCode; }
-    //}
 
-    public virtual List<Address> Addresses { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    public virtual List<Address>? Addresses { get; set; }
 }

@@ -6,7 +6,6 @@ namespace BookStore.Data.Entities;
 
 public partial class BookStoreContext : DbContext// IdentityDbContext<AppUser,AppRole,int>
 {
-    public DbSet<Lang> Langs { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Book> Books { get; set; }
@@ -37,52 +36,7 @@ public partial class BookStoreContext : DbContext// IdentityDbContext<AppUser,Ap
         modelBuilder.Entity<Book>()
            .Property(x => x.Price)
            .HasPrecision(6, 2);
-
-        #region DateTime.Now -> getdate()
-        modelBuilder.Entity<Book>()
-            .Property(x => x.CreatedDate)
-            //.HasDefaultValue(DateTime.Now)
-            .HasDefaultValueSql("getdate()")
-            .IsRequired();
-
-        modelBuilder.Entity<Publisher>()
-            .Property(x => x.CreatedDate)
-            .HasColumnType("datetime")
-            .HasDefaultValueSql("getdate()")
-            .IsRequired();
-
-        modelBuilder.Entity<Address>()
-            .Property(x => x.CreatedDate)
-            .HasColumnType("datetime")
-            .HasDefaultValueSql("getdate()")
-            .IsRequired();
-
-        modelBuilder.Entity<Author>()
-            .Property(x => x.CreatedDate)
-            .HasColumnType("datetime")
-            .HasDefaultValueSql("getdate()")
-            .IsRequired();
-
-        modelBuilder.Entity<Translator>()
-            .Property(x => x.CreatedDate)
-            .HasColumnType("datetime")
-            .HasDefaultValueSql("getdate()")
-            .IsRequired();
-
-        modelBuilder.Entity<Campaign>()
-            .Property(x => x.CreatedDate)
-            .HasColumnType("datetime")
-            .HasDefaultValueSql("getdate()")
-            .IsRequired(); 
-        
-        modelBuilder.Entity<Book>()
-            .Property(x => x.CreatedDate)
-            .HasColumnType("datetime")
-            .HasDefaultValueSql("getdate()")
-            .IsRequired();
-        #endregion
-
-        SeedLangs(modelBuilder);
+      
         //SeedAuthor(modelBuilder);
         SeedPublisher(modelBuilder);
         SeedCities(modelBuilder);
