@@ -6,8 +6,7 @@ namespace BookStore.Data.Entities;
 public class Campaign : EntityBase,INameEntity
 {
     public string Name { get; set; } = "";
-
-    [DataType(DataType.MultilineText)]
+    
     public string Description { get; set; } = "";
 
     public bool IsActive { get; set; } = true;

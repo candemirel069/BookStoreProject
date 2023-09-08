@@ -1,0 +1,46 @@
+﻿@model BookItemViewModel
+
+
+<div class="row border rounded mt-4 bg-light book-item">
+    <div class="col-md-1 mt-3 mb-3"><img class="img-fluid img-responsive product-image" src="/images/book.png"></div>
+    <div class="col pt-3">
+        <a asp-route-Id="@Model.Id" asp-action="Book" class="fs-4 link-dark book-item-name">@Model.Name</a>
+
+        <div>
+            <span class="fs-5 text-secondary"> @Model.AuthorName</span>
+            @if (!String.IsNullOrEmpty(Model.TranslatorName))
+            {
+                <span class="fs-5 text-dark fw-bold ml"> / </span>
+                <span class="fs-5 text-secondary"> @Model.TranslatorName</span>
+            }
+        </div>
+        <div>
+            <partial name="_BookStars" model="Model.Star" />
+        </div>
+        <div>
+            <div class="mt-1 mb-1 spec-1 mb-3">
+                <span class="badge bg-primary">@Model.PageCount sayfa</span>
+                <span class="badge bg-secondary">@Model.Category</span>
+                <span class="badge bg-success">@Model.PublisherName</span>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  bg-success bg-opacity-10 pt-5" style="position:relative">
+        @if (Model.DiscountRate.HasValue)
+        {
+            <div class="book-item-price-pos fs-4 bg-warning text-danger p-2 ">
+                % @Model.DiscountRate
+            </div>
+            <p class="text-decoration-line-through " style="text-decoration:line-through">@Model.Price?.ToString("0.00") TL</p>
+            <p class="fs-4 fw-bold text-dark">@Model.TotalAmount?.ToString("0.00") TL</p>
+        }
+        else
+        {
+            <p class="fs-4 fw-bold">@Model.Price?.ToString("0.00") TL</p>
+        }
+
+
+
+    </div>
+</div>

@@ -1,3 +1,7 @@
+using BookStore.Data.Entities;
+using BookStore.WebUI.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace BookStore.WebUI
 {
     public class Program
@@ -6,12 +10,17 @@ namespace BookStore.WebUI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            var constr = builder.Configuration.GetConnectionString("BookSqlCon1");
+            builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(constr));
+
+            builder.Services.AddTransient<IListService, ListService>();
+            builder.Services.AddTransient<IBookSearchService, BookSearchService>();
+            builder.Services.AddTransient<IStatsService, StatsService>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
