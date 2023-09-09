@@ -18,10 +18,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B56386E4-F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{3F69F509-EE2D-47A1-AEA6-F031FE521F54}"
 	ProjectSection(SolutionItems) = preProject
-		data-books.sql = data-books.sql
 		data-author-translator.sql = data-author-translator.sql
+		data-books.sql = data-books.sql
 		data-full.sql = data-full.sql
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{BF66FFF2-D0A8-426E-847A-4880EB06D97B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{B9DFA5B4-8403-49AE-ACAA-918CA9C617C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9DFA5B4-8403-49AE-ACAA-918CA9C617C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9DFA5B4-8403-49AE-ACAA-918CA9C617C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF66FFF2-D0A8-426E-847A-4880EB06D97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF66FFF2-D0A8-426E-847A-4880EB06D97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF66FFF2-D0A8-426E-847A-4880EB06D97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF66FFF2-D0A8-426E-847A-4880EB06D97B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

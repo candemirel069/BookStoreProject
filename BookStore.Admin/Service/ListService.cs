@@ -18,23 +18,47 @@ namespace BookStore.Admin.Service
             return new SelectList(_context.Books.OrderBy(it => it.Name), "Id", "Name", selectedItem);
         }
 
-        public SelectList GetSelectList<TEntity>(object? selectedItem = null) where TEntity : class, INameEntity
+        public SelectList GetSelectList<TEntity>(object? selectedItem = null) 
+            where TEntity : class, INameEntity
         {
-            var data = _context.Set<TEntity>().Select(x => new { x.Id, x.Name }).OrderBy(x => x.Name).ToList();
+            var data = _context.Set<TEntity>()
 
-            var sl= new SelectList(data, "Id", "Name", selectedItem);
+                .Select(x => new { x.Id, x.Name })
+                .OrderBy(x => x.Name)
+                .ToList();
+
+            var sl = new SelectList(data, "Id", "Name", selectedItem);
             return sl;
         }
 
-
-
-        public SelectList GetPersonSelectList<TEntity>(object? selectedItem = null) where TEntity : PersonBase
+        public SelectList GetPersonSelectList<TEntity>(object? selectedItem = null) 
+            where TEntity : PersonBase
         {
             var data = _context.Set<TEntity>().OrderBy(x => x.Name).Select(x => new { x.Id, x.FullName }).ToList();
 
-            var sl= new SelectList(data, "Id", "FullName", selectedItem);
+            var sl = new SelectList(data, "Id", "FullName", selectedItem);
             return sl;
         }
 
+        public void dummy()
+        {
+            var data = new List<int>();
+
+            var data2 = _context.Books.ToList();
+
+            var data3 = _context.Set<Book>().ToList();
+        }
+        public SelectList dummySelectList<TEntiy>() where TEntiy : PersonBase
+        {
+            return new SelectList(_context.Set<TEntiy>().OrderBy(x=>x.FullName).ToList(), "Id", "FullName");
+        }
+        public void master()
+        {
+            //var data1 = dummySelectList<Translator>();
+            //var data2 = dummySelectList<Author>();
+            //var data3 = dummySelectList<Publisher>();
+
+            //var plist = GetPersonSelectList<Author>();
+        }
     }
 }

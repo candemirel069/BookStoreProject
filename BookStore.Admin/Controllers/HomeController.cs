@@ -18,8 +18,7 @@ namespace BookStore.Admin.Controllers
             _logger = logger;
             _context = db;
         }
-
-      
+     
         public IActionResult Index()
         {
             var home = new HomePageModel

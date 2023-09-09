@@ -21,15 +21,16 @@ namespace BookStore.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var authorList = from author in _context.Authors.Include(x => x.Books)
-                                   orderby author.Name
-                       select new AuthorViewModel()
-                       {                           
-                           Id= author.Id,
-                           FullName= author.FullName,
-                           BookCount=author.Books.Count(),
-                           Email= author.EMail??""
-                       };
+            var authorList = from author in _context.Authors
+                             .Include(x => x.Books)
+                             orderby author.Name
+                             select new AuthorViewModel()
+                             {
+                                 Id = author.Id,
+                                 FullName = author.FullName,
+                                 BookCount = author.Books.Count(),
+                                 Email = author.EMail ?? ""
+                             };
             return View(await authorList.ToListAsync());
         }
 
@@ -140,14 +141,14 @@ namespace BookStore.Admin.Controllers
             {
                 _context.Authors.Remove(author);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AuthorExists(int id)
         {
-          return (_context.Authors?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Authors?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

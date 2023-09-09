@@ -39,7 +39,6 @@ namespace BookStore.Admin.Controllers
 
             if (!result.Succeeded)
             {
-               
                 ModelState.AddModelError("username", "XXXXX");
                 ModelState.AddModelError("", "YYYYY");
 
@@ -49,7 +48,8 @@ namespace BookStore.Admin.Controllers
                 }
             }
             else
-            { var adminRole =await _roleManager.FindByNameAsync("Admin");
+            {
+                var adminRole = await _roleManager.FindByNameAsync("Admin");
                 if (adminRole != null)
                 {
                     IdentityResult roleresult = await _userManager.AddToRoleAsync(newUser, adminRole.Name);

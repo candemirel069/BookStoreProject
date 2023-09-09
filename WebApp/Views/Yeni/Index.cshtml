@@ -1,0 +1,30 @@
+﻿@using WebApp.Services;
+@inject IMyService _srv;
+<h1>Yeni Sayfa</h1>
+<hr />
+@{
+    var kitaplar = new List<Kitap>()
+    {
+        new Kitap { Id=1, Adi="aaa"},
+        new Kitap { Id=2, Adi="bbb"},
+        new Kitap { Id=3, Adi="ccc"},
+        new Kitap { Id=4, Adi="ddd"},
+    };
+
+    var sl1 = new SelectList(kitaplar, "Id", "Adi");
+}
+<b>@_srv.GetStartDate()</b> - <b>@_srv.GetEndDate()</b>
+
+<h2>Tarih : @ViewBag.YeniTarih</h2>
+
+<br />
+
+<select asp-items="sl1" class="form-control">
+    <option>seçiniz 1</option>
+</select>
+
+<hr />
+
+<select asp-items="ViewBag.KitapListesi" class="form-control">
+    <option>seçiniz 2</option>
+</select>

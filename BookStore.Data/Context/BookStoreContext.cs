@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Data.Entities;
 
-public partial class BookStoreContext : IdentityDbContext<AppUser, AppRole, int>
+public partial class BookStoreContext  : IdentityDbContext<AppUser, AppRole, int> //:DbContext 
 {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Address> Addresses { get; set; }
@@ -42,7 +42,6 @@ public partial class BookStoreContext : IdentityDbContext<AppUser, AppRole, int>
         SeedPublisher(modelBuilder);
         SeedCities(modelBuilder);
         SeedCategories(modelBuilder);
-
 
         int Admin_Role_Id = 10;
         int User_Role_Id = 20;

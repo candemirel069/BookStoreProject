@@ -8,13 +8,13 @@ namespace BookStore.Data.Base
         [Display(Name = "Adı")]
         public string Name { get; set; } = "";
 
-        [Display(Name = "İkinci Adı")]
+        [Display(Name = "İkinci Adı2")]
         public string? MiddleName { get; set; } = null;
 
-        [Display(Name = "Soyadı")]
+        [Display(Name = "Soyadı2")]
         public string Surname { get; set; } = "";
 
-        [NotMapped]
+        //[NotMapped]
         public string FullName => $"{Name} {MiddleName} {Surname.ToUpper()}";
     }
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookStore.Data.Entities;
 using BookStore.Admin.Models;
 using BookStore.Admin.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookStore.Admin.Controllers
 {
@@ -48,8 +49,6 @@ namespace BookStore.Admin.Controllers
                            };
             return View(await bookList.OrderBy(x=>x.Name).Take(5).ToListAsync());
         }
-
-       
 
         public IActionResult Create()
         {

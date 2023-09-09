@@ -12,7 +12,7 @@ namespace BookStore.WebUI
 
             builder.Services.AddControllersWithViews();
 
-            var constr = builder.Configuration.GetConnectionString("BookSqlCon1");
+            var constr = builder.Configuration.GetConnectionString("BookSqlCon");
             builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(constr));
 
             builder.Services.AddTransient<IListService, ListService>();
