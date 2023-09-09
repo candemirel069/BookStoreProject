@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace BookStore.Admin.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,6 +19,7 @@ namespace BookStore.Admin.Controllers
             _context = db;
         }
 
+      
         public IActionResult Index()
         {
             var home = new HomePageModel
