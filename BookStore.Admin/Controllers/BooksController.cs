@@ -42,6 +42,7 @@ namespace BookStore.Admin.Controllers
                                Id = bk.Id,
                                Name = bk.Name,
                                PageCount = bk.PageCount,
+                               ImageUrl=bk.ImageUrl,
                                Author = bk.Author.FullName,
                                Translator = bk.Translator.FullName,
                                Publisher = bk.Publisher.Name,

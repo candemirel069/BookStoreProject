@@ -50,7 +50,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("BookStore.Data.Entities.Author", b =>
@@ -77,7 +77,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("BookStore.Data.Entities.Book", b =>
@@ -96,6 +96,9 @@ namespace BookStore.Data.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -129,7 +132,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasIndex("TranslatorId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("BookStore.Data.Entities.Campaign", b =>
@@ -156,7 +159,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campaigns", (string)null);
+                    b.ToTable("Campaigns");
                 });
 
             modelBuilder.Entity("BookStore.Data.Entities.Category", b =>
@@ -176,7 +179,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -234,7 +237,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
 
                     b.HasData(
                         new
@@ -860,7 +863,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
 
                     b.HasData(
                         new
@@ -919,7 +922,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Translators", (string)null);
+                    b.ToTable("Translators");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

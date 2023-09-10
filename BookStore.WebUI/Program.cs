@@ -12,7 +12,7 @@ namespace BookStore.WebUI
 
             builder.Services.AddControllersWithViews();
 
-            var constr = builder.Configuration.GetConnectionString("BookSqlCon");
+            var constr = builder.Configuration.GetConnectionString("BookSqlCon1");
             builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(constr));
 
             builder.Services.AddTransient<IListService, ListService>();
@@ -24,7 +24,7 @@ namespace BookStore.WebUI
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                
                 app.UseHsts();
             }
 

@@ -23,5 +23,7 @@ namespace BookStore.Admin.Models
         
         [Display(Name = "Çevirmen")]
         public string Translator { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿
 using BookStore.Data.Base;
+using BookStore.Data.Configurations;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStore.Data.Entities;
 
@@ -35,4 +37,10 @@ public class Book : EntityBase,INameEntity
     public int? CampaignId { get; set; }
     [ScaffoldColumn(false)]
     public virtual Campaign? Campaign { get; set; }
+    
+    [ScaffoldColumn(false)]
+    public string? Image { get; set; }
+
+    [NotMapped]
+    public string? ImageUrl => MyApplicationConfig.WebUI_Address + Image;
 }

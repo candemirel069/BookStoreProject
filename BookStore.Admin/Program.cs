@@ -20,9 +20,9 @@ namespace BookStore.Admin
                     .RequireAuthenticatedUser()
                     .Build();
             });
-            var constr = builder.Configuration.GetConnectionString("BookSqlCon");
+            var constr = builder.Configuration.GetConnectionString("BookSqlCon1");
             builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(constr));
-            builder.Services.AddSingleton<IToolsService, ToolsService>();
+            builder.Services.AddTransient<IToolsService, ToolsService>();
             builder.Services.AddTransient<IListService, ListService>();
 
             builder.Services.AddIdentity<AppUser, AppRole>(options =>
