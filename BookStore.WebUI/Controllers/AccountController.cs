@@ -1,5 +1,6 @@
 ﻿using BookStore.Common.Models.Identities;
 using BookStore.Data.Entities.Identities;
+using BookStore.WebUI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,14 @@ namespace BookStore.WebUI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IUserService _userService;
 
-        public AccountController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager, IUserService userService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _userService = userService;
         }
 
         public IActionResult Register()
@@ -28,7 +31,8 @@ namespace BookStore.WebUI.Controllers
         {
             var newUser = new AppUser
             {
-                Fullname = model.Fullname,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 Email = model.Email,
                 UserName = model.Username,
             };
@@ -49,10 +53,12 @@ namespace BookStore.WebUI.Controllers
                 {
                     IdentityResult roleresult = await _userManager.AddToRoleAsync(newUser, userRole.Name);
                 }
+                _userService.SetUserSession(newUser);
                 return RedirectToAction("Login");
             }
             return View(model);
         }
+
 
         public IActionResult Login()
         {
@@ -80,6 +86,11 @@ namespace BookStore.WebUI.Controllers
             }
         }
 
-        public async Task Logout() => await _signInManager.SignOutAsync();
+        public async Task Logout()
+        {
+            HttpContext.Session.Clear();
+            await _signInManager.SignOutAsync();
+        }
+ 
     }
 }

@@ -19,6 +19,8 @@ namespace BookStore.WebUI
             builder.Services.AddTransient<IListService, ListService>();
             builder.Services.AddTransient<IBookSearchService, BookSearchService>();
             builder.Services.AddTransient<IStatsService, StatsService>();
+            builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddSession();
 
             builder.Services.AddIdentity<AppUser, AppRole>(options =>
             {
@@ -52,7 +54,6 @@ namespace BookStore.WebUI
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                
                 app.UseHsts();
             }
 
@@ -63,6 +64,7 @@ namespace BookStore.WebUI
 
             app.UseAuthorization();
 
+            app.UseSession();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

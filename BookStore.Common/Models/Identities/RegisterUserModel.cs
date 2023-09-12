@@ -9,10 +9,10 @@ namespace BookStore.Common.Models.Identities
         public string Username { get; set; } = default!;
 
         [Required]
-        public string? FirstName { get; set; }
-        
+        public string FirstName { get; set; } = "";
+
         [Required]
-        public string? LastName { get; set; }
+        public string LastName { get; set; } = "";
 
         [Required]
         [EmailAddress]

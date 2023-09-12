@@ -30,7 +30,8 @@ namespace BookStore.Admin.Controllers
         {
             var newUser = new AppUser
             {
-                Fullname = model.Fullname,
+                FirstName =model.FirstName,
+                LastName=model.LastName,
                 Email = model.Email,
                 UserName = model.Username,
             };
