@@ -9,7 +9,7 @@
         public string? Category { get; set; }
         public string? AuthorName { get; set; }
         public string? TranslatorName { get; set; }
-
+        public string? ImageUrl { get; set; }
         public int? Star { get; set; }
 
 

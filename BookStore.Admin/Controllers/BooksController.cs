@@ -9,6 +9,7 @@ using BookStore.Data.Entities;
 using BookStore.Admin.Models;
 using BookStore.Admin.Service;
 using Microsoft.AspNetCore.Authorization;
+using BookStore.Common.Configurations;
 
 namespace BookStore.Admin.Controllers
 {
@@ -42,13 +43,13 @@ namespace BookStore.Admin.Controllers
                                Id = bk.Id,
                                Name = bk.Name,
                                PageCount = bk.PageCount,
-                               ImageUrl=bk.ImageUrl,
+                               ImageUrl = MyApplicationConfig.ImageBaseUrl + bk.ImageName,
                                Author = bk.Author.FullName,
                                Translator = bk.Translator.FullName,
                                Publisher = bk.Publisher.Name,
                                Category = bk.Category.Name
                            };
-            return View(await bookList.OrderBy(x=>x.Name).Take(5).ToListAsync());
+            return View(await bookList.OrderBy(x => x.Name).Take(5).ToListAsync());
         }
 
         public IActionResult Create()

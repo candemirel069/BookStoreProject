@@ -1,12 +1,10 @@
 ﻿using BookStore.Common.Models.Identities;
 using BookStore.Data.Entities.Identities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookStore.Admin.Controllers
+namespace BookStore.WebUI.Controllers
 {
-    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -39,9 +37,6 @@ namespace BookStore.Admin.Controllers
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("username", "XXXXX");
-                ModelState.AddModelError("", "YYYYY");
-
                 foreach (var item in result.Errors)
                 {
                     ModelState.AddModelError("", item.Description);
@@ -49,10 +44,10 @@ namespace BookStore.Admin.Controllers
             }
             else
             {
-                var adminRole = await _roleManager.FindByNameAsync("Admin");
-                if (adminRole != null)
+                var userRole = await _roleManager.FindByNameAsync("User");
+                if (userRole != null)
                 {
-                    IdentityResult roleresult = await _userManager.AddToRoleAsync(newUser, adminRole.Name);
+                    IdentityResult roleresult = await _userManager.AddToRoleAsync(newUser, userRole.Name);
                 }
                 return RedirectToAction("Login");
             }
@@ -70,14 +65,12 @@ namespace BookStore.Admin.Controllers
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user == null)
             {
-                //ModelState.AddModelError("username", "Kullanıcı bulunamadı");
                 ModelState.AddModelError("", "Kullanıcı ve/veya şifre yanlış");
                 return View(model);
             }
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
             if (!result.Succeeded)
             {
-                //ModelState.AddModelError("password", "yanlış şifre");
                 ModelState.AddModelError("", "Kullanıcı ve/veya şifre yanlış");
                 return View(model);
             }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookStore.Admin.Models.Identities
+namespace BookStore.Common.Models.Identities
 {
     public class RegisterUserModel
     {
@@ -9,7 +9,10 @@ namespace BookStore.Admin.Models.Identities
         public string Username { get; set; } = default!;
 
         [Required]
-        public string? Fullname { get; set; }
+        public string? FirstName { get; set; }
+        
+        [Required]
+        public string? LastName { get; set; }
 
         [Required]
         [EmailAddress]

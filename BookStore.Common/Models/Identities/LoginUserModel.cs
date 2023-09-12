@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookStore.Admin.Models.Identities
+namespace BookStore.Common.Models.Identities
 {
     public class LoginUserModel
     {

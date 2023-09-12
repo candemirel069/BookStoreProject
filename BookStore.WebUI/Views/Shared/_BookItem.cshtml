@@ -2,10 +2,10 @@
 
 
 <div class="row border rounded mt-4 bg-light book-item">
-    <div class="col-md-1 mt-3 mb-3"><img class="img-fluid img-responsive product-image" src="/images/book.png"></div>
+    <div class="col-md-1 mt-3 mb-3">
+        <img class="img-fluid img-responsive product-image" src='@Model.ImageUrl??"q4/images/book.png"'></div>
     <div class="col pt-3">
         <a asp-route-Id="@Model.Id" asp-action="Book" class="fs-4 link-dark book-item-name">@Model.Name</a>
-
         <div>
             <span class="fs-5 text-secondary"> @Model.AuthorName</span>
             @if (!String.IsNullOrEmpty(Model.TranslatorName))

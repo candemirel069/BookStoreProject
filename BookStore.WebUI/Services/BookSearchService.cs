@@ -1,4 +1,5 @@
-﻿using BookStore.Data.Entities;
+﻿using BookStore.Common.Configurations;
+using BookStore.Data.Entities;
 using BookStore.WebUI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,6 +39,7 @@ namespace BookStore.WebUI.Services
                              PublisherName = bk.Publisher.Name,
                              Category = bk.Category.Name,
                              Star = bk.Star,
+                             ImageUrl = MyApplicationConfig.ImageBaseUrl + bk.ImageName,
                              Price = bk.Price,
                              DiscountRate = bk.Campaign.DiscountRate,
                          };
