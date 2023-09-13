@@ -53,7 +53,6 @@ namespace BookStore.WebUI.Controllers
                 {
                     IdentityResult roleresult = await _userManager.AddToRoleAsync(newUser, userRole.Name);
                 }
-                _userService.SetUserSession(newUser);
                 return RedirectToAction("Login");
             }
             return View(model);
@@ -82,6 +81,7 @@ namespace BookStore.WebUI.Controllers
             }
             else
             {
+                _userService.SetUserSession(user);
                 return RedirectToAction("Index", "Home");
             }
         }

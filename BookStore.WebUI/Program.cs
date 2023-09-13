@@ -11,17 +11,20 @@ namespace BookStore.WebUI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllersWithViews();
+        
 
             var constr = builder.Configuration.GetConnectionString("BookSqlCon1");
             builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(constr));
-
+             builder.Services.AddSession();
             builder.Services.AddTransient<IListService, ListService>();
             builder.Services.AddTransient<IBookSearchService, BookSearchService>();
             builder.Services.AddTransient<IStatsService, StatsService>();
-            builder.Services.AddTransient<IUserService, UserService>();
-            builder.Services.AddSession();
+            builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+            builder.Services.AddControllersWithViews();
             builder.Services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.Password.RequireDigit = false;

@@ -23,8 +23,8 @@
                     <div class="card">
                         <div class="card-body py-5 px-md-5">
                             
-                            <form>
-                                <!-- 2 column grid layout with text inputs for the first and last names -->
+                            <form asp-action="Register" >
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
@@ -47,6 +47,13 @@
                                     <label class="form-label" asp-for="Email"></label>
                                     <input asp-for="Email" class="form-control" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <!-- Username input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" asp-for="Username"></label>
+                                    <input asp-for="Username" class="form-control" />
+                                    <span asp-validation-for="Username" class="text-danger"></span>
                                 </div>
 
                                 <!-- Password input -->
