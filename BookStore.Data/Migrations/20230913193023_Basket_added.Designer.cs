@@ -4,6 +4,7 @@ using BookStore.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Data.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    partial class BookStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20230913193023_Basket_added")]
+    partial class Basket_added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +83,7 @@ namespace BookStore.Data.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("BookStore.Data.Entities.BasketItem", b =>
+            modelBuilder.Entity("BookStore.Data.Entities.Basket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +106,7 @@ namespace BookStore.Data.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BasketItems");
+                    b.ToTable("Basket");
                 });
 
             modelBuilder.Entity("BookStore.Data.Entities.Book", b =>
@@ -1078,7 +1081,7 @@ namespace BookStore.Data.Migrations
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("BookStore.Data.Entities.BasketItem", b =>
+            modelBuilder.Entity("BookStore.Data.Entities.Basket", b =>
                 {
                     b.HasOne("BookStore.Data.Entities.Identities.AppUser", "AppUser")
                         .WithMany()

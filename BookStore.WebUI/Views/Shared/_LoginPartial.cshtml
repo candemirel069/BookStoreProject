@@ -1,15 +1,19 @@
 ﻿
 @using Microsoft.AspNetCore.Identity
-@inject IUserService _user;
+
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 &nbsp;
 <ul class="navbar-nav align-content-end">
+    
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
+            <i class="fa-solid fa-cart-shopping text-primary"></i> 
+        </li>
+        <li class="nav-item">
             @* <span class="nav-link text-light">Kullanıcı @UserManager.GetUserName(User)</span> *@
-            <span class="nav-link "><i class="fa-solid fa-user text-success"></i> @_user.GetFullName()</span>
+            <span class="nav-link "><i class="fa-solid fa-user text-success"></i> @UserManager.GetUserName(User)</span>
         </li>
         <li class="nav-item bg-light">
             <form id="logoutForm" class="form-inline" asp-controller="account" asp-action="logout" asp-route-returnUrl="@Url.Action("Index", "Home")">

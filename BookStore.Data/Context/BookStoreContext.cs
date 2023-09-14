@@ -1,10 +1,20 @@
-﻿using BookStore.Data.Entities.Identities;
+﻿using BookStore.Data.Base;
+using BookStore.Data.Entities.Identities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Data.Entities;
+public class BasketItem : EntityBase
+{
+    public int AppUserId { get; set; }
+    public AppUser AppUser { get; set; }
 
+    public int Quantity { get; set; } = 1;
+
+    public int BookId{ get; set; }
+    public Book Book { get; set; }
+}
 public partial class BookStoreContext  : IdentityDbContext<AppUser, AppRole, int> //:DbContext 
 {
     public DbSet<Category> Categories { get; set; }
@@ -15,6 +25,7 @@ public partial class BookStoreContext  : IdentityDbContext<AppUser, AppRole, int
     public DbSet<Author> Authors { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Translator> Translators { get; set; }
+    public DbSet<BasketItem> BasketItems { get; set; }
 
     public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options) { }
 

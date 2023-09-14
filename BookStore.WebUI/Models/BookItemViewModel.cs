@@ -12,7 +12,6 @@
         public string? ImageUrl { get; set; }
         public int? Star { get; set; }
 
-
         public decimal? Price { get; set; }
 
         public int? DiscountRate { get; set; }
