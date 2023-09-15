@@ -17,9 +17,10 @@ namespace BookStore.WebUI
             builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(constr));
             builder.Services.AddSession();
             builder.Services.AddScoped<IListService, ListService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IBookSearchService, BookSearchService>();
             builder.Services.AddScoped<IStatsService, StatsService>();
-            builder.Services.AddScoped<IBasketService,BasketService>();
+            builder.Services.AddScoped<IBasketService, BasketService>();
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

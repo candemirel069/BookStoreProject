@@ -8,5 +8,10 @@ namespace BookStore.WebUI.Controllers
         {
             return View();
         }
+
+        //public JsonResult AddToBasket(int productId)
+        //{
+            
+        //}
     }
 }

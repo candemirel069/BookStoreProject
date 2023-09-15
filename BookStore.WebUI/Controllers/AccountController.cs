@@ -81,7 +81,7 @@ namespace BookStore.WebUI.Controllers
             }
             else
             {
-                _userService.SetUserSession(user);
+               // _userService.SetUserSession(user);
                 return RedirectToAction("Index", "Home");
             }
         }

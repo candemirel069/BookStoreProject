@@ -28,7 +28,7 @@ namespace BookStore.WebUI.Services
                             && (!model.AuthorId.HasValue || bk.AuthorId == model.AuthorId)
                             && (!model.CategoryId.HasValue || bk.CategoryId == model.CategoryId)
                             && (!model.PublisherId.HasValue || bk.PublisherId == model.PublisherId)
-                         orderby bk.Name
+                         orderby bk.Name                        
                          select new BookItemViewModel()
                          {
                              Id = bk.Id,
@@ -43,7 +43,7 @@ namespace BookStore.WebUI.Services
                              Price = bk.Price,
                              DiscountRate = bk.Campaign.DiscountRate,
                          };
-            return result.ToList();
+            return result.Take(5).ToList();
         }
         public List<BookItemViewModel> Search(IEnumerable<int> bookIds)
         {

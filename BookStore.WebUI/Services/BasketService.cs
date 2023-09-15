@@ -5,6 +5,7 @@ using BookStore.WebUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
+using System.Security.Claims;
 
 namespace BookStore.WebUI.Services
 {
@@ -18,58 +19,39 @@ namespace BookStore.WebUI.Services
     }
 
     public class BasketService : IBasketService
-    {
-        
+    {        
         private readonly IBookSearchService _bookSearch;
-        private readonly IHttpContextAccessor _httpContext;
         private readonly BookStoreContext _dbContext;
-        private readonly UserManager<AppUser> _userManager;
-        
-        //private AppUser  _User;//=> _userManager.GetUserAsync(HttpContext.User)
+        private readonly IUserService _userService;
 
-        public BasketService(IBookSearchService bookSearch, IHttpContextAccessor httpContext, BookStoreContext dbContext, UserManager<AppUser> userManager)
+        public BasketService(IBookSearchService bookSearch, BookStoreContext dbContext, IUserService userService)
         {
             _bookSearch = bookSearch;
-            _httpContext = httpContext;
             _dbContext = dbContext;
-            _userManager = userManager;
-            
-
-        }
-
-        private async Task NewMethod()
-        {
-            if (_httpContext?.HttpContext?.User != null)
-            {
-                var user = await _userManager.GetUserId(_httpContext.HttpContext.User);
-                if (user != null)
-                {
-
-                }
-            }
+            _userService = userService;
         }
 
         public BasketViewModel GetBasket()
         {
             var result = new BasketViewModel();
             var bookIds = _dbContext.BasketItems
-            .Where(x => x.AppUserId == UserId)
-            .Select(b => b.BookId).ToList();
-            if (bookIds == null)
+                .Where(x => x.AppUserId == _userService.GetUserId())
+                .Select(b => b.BookId).ToList();
+                if (bookIds == null)
                 return result;
 
             return result;
         }
         public void AddToBasket(int bookId)
         {
-            var basketItem = _dbContext.BasketItems.FirstOrDefault(x => x.AppUserId == UserId && x.BookId == bookId);
+            var basketItem = _dbContext.BasketItems.FirstOrDefault(x => x.AppUserId == _userService.GetUserId() && x.BookId == bookId);
             if (basketItem != null)
             {
                 basketItem.Quantity++;
             }
             else
             {
-                var newBasketItem = new BasketItem { AppUserId = UserId, BookId = bookId };
+                var newBasketItem = new BasketItem { AppUserId = _userService.GetUserId(), BookId = bookId };
                 _dbContext.Add(newBasketItem);
 
             }
@@ -77,7 +59,7 @@ namespace BookStore.WebUI.Services
         }
         public void RemoveFromBasket(int bookId)
         {
-            var basketItem = _dbContext.BasketItems.FirstOrDefault(x => x.AppUserId == UserId && x.BookId == bookId);
+            var basketItem = _dbContext.BasketItems.FirstOrDefault(x => x.AppUserId == _userService.GetUserId() && x.BookId == bookId);
             if (basketItem != null)
             {
                 _dbContext.Remove(basketItem);
@@ -92,7 +74,7 @@ namespace BookStore.WebUI.Services
             }
             else
             {
-                var basketItem = _dbContext.BasketItems.FirstOrDefault(x => x.AppUserId == UserId && x.BookId == bookId);
+                var basketItem = _dbContext.BasketItems.FirstOrDefault(x => x.AppUserId == _userService.GetUserId() && x.BookId == bookId);
                 if (basketItem != null)
                 {
                     basketItem.Quantity = quantity;
@@ -103,7 +85,8 @@ namespace BookStore.WebUI.Services
 
         public int ItemCount()
         {
-            return _dbContext.BasketItems.Where(it => it.AppUserId == UserId).Count();
+            return _dbContext.BasketItems.Where(it => it.AppUserId == _userService.GetUserId()).Count();
+           
         }
     }
 }

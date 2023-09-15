@@ -1,9 +1,11 @@
 ﻿
 @using Microsoft.AspNetCore.Identity
-
+@inject IBasketService _bastket;
+@inject IUserService _userService;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 &nbsp;
+<span>@_userService.GetUserId()</span>
 <ul class="navbar-nav align-content-end">
     
     @if (SignInManager.IsSignedIn(User))

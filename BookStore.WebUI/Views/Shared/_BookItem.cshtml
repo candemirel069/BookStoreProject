@@ -26,19 +26,22 @@
             </div>
         </div>
     </div>
+    
     <div class="col-md-2  bg-success bg-opacity-10 pt-5" style="position:relative">
         @if (Model.DiscountRate.HasValue)
         {
-            <div class="book-item-price-pos fs-4 bg-warning text-danger p-2 ">
-                % @Model.DiscountRate
+            <div class="book-item-price-pos fs-5 bg-warning text-danger p-2 ">
+                %@Model.DiscountRate
             </div>
-            <p class="text-decoration-line-through " style="text-decoration:line-through">@Model.Price?.ToString("0.00") TL</p>
-            <p class="fs-4 fw-bold text-dark">@Model.TotalAmount?.ToString("0.00") TL</p>
+            <div class="text-decoration-line-through " style="text-decoration:line-through">@Model.Price?.ToString("0.00") TL</div>
+            <div class="fs-4 fw-bold text-dark">@Model.TotalAmount?.ToString("0.00") TL</div>
         }
         else
         {
             <p class="fs-4 fw-bold">@Model.Price?.ToString("0.00") TL</p>
         }
+
+        <div class=" bg-info w-100" style="position:absolute;left:0;bottom:0">1</div>
 
 
 
