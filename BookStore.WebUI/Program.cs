@@ -11,8 +11,6 @@ namespace BookStore.WebUI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
-
             var constr = builder.Configuration.GetConnectionString("BookSqlCon");
             builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(constr));
             //builder.Services.AddSession();

@@ -1,4 +1,5 @@
-﻿using BookStore.Data.Entities;
+﻿using BookStore.Common.Configurations;
+using BookStore.Data.Entities;
 using BookStore.Data.Entities.Identities;
 using BookStore.WebUI.Models;
 using BookStore.WebUI.Services;

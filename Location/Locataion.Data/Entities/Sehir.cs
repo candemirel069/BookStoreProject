@@ -10,5 +10,5 @@ public partial class Sehir
 
     public string? Adi { get; set; }
    
-    public virtual ICollection<Ilce> Ilce { get; } = new List<Ilce>();
+    public virtual List<Ilce> Ilce { get; } = new List<Ilce>();
 }

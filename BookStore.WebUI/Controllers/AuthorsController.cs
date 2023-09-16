@@ -9,12 +9,10 @@ namespace BookStore.WebUI.Controllers;
 public class AuthorsController : Controller
 {
     private readonly BookStoreContext _db;
-    private readonly IBookSearchService _service;
 
-    public AuthorsController(BookStoreContext db, IBookSearchService service)
+    public AuthorsController(BookStoreContext db)
     {
         _db = db;
-        _service = service;
     }
 
     public IActionResult Index()

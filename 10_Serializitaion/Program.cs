@@ -5,6 +5,7 @@ public class Sehir
     public int Id { get; set; } = Program.UID++;
     public string Adi { get; set; } = "";
     public string Plaka { get; set; } = "";
+    [XmlIgnore]
     public List<Ilce> Ilceler { get; set; } = new List<Ilce>();
 }
 
@@ -13,7 +14,7 @@ public class Ilce
     public int Id { get; set; } = Program.UID++;
     public string Adi { get; set; } = "";
 }
-[XmlRoot("sehirler")]
+[XmlRoot("Cities")]
 public class SehirListesi : List<Sehir>
 {
 
@@ -66,7 +67,7 @@ internal class Program
     public static int UID = 1;
     static void Main(string[] args)
     {
-        var data = GetData1();
+        var data = GetData2();
 
         using (var stringwriter = new StringWriter())
         {

@@ -9,18 +9,11 @@ namespace BookStore.WebUI.Controllers
 {
     public class BooksController : Controller
     {
-        private readonly ILogger<BooksController> _logger;
         private readonly IBookSearchService _bookService;
-        private readonly BookStoreContext _context;
 
-        public BooksController(
-            ILogger<BooksController> logger, 
-            IBookSearchService service, 
-            BookStoreContext context)
+        public BooksController(IBookSearchService bookService)
         {
-            _logger = logger;
-            _bookService = service;
-            _context = context;
+            _bookService = bookService;
         }
 
         public IActionResult Index(BookSearchModel? model)

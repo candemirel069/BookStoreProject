@@ -43,7 +43,7 @@ namespace BookStore.WebUI.Services
                              Price = bk.Price,
                              DiscountRate = bk.Campaign.DiscountRate,
                          };
-            return result.Take(5).ToList();
+            return result.ToList();
         }
         
     }

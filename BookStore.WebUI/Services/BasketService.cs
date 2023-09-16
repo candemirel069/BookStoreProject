@@ -103,7 +103,9 @@ namespace BookStore.WebUI.Services
 
         public int ItemCount()
         {
-            return _dbContext.BasketItems.Where(it => it.AppUserId == _userService.GetUserId()).Sum(x=>x.Quantity);
+            return _dbContext.BasketItems
+                .Where(it => it.AppUserId == _userService.GetUserId())
+                .Sum(x=>x.Quantity);
            
         }
     }
