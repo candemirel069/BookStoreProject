@@ -20,7 +20,7 @@ public partial class LocationDbContext : DbContext
     public virtual DbSet<Sehir> Sehir { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\junk;Database=MyLocationDB;Trusted_Connection=True;TrustServerCertificate=true");
+        => optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MyLocationDB;Trusted_Connection=True;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

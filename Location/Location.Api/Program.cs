@@ -8,7 +8,7 @@ namespace Location.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var constr = builder.Configuration.GetConnectionString("LocCon1");
+            var constr = builder.Configuration.GetConnectionString("LocCon");
             builder.Services.AddDbContext<LocationDbContext>();
             builder.Services.AddControllers();
 

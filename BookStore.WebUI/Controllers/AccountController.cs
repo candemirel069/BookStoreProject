@@ -88,7 +88,6 @@ namespace BookStore.WebUI.Controllers
 
         public async Task Logout()
         {
-            HttpContext.Session.Clear();
             await _signInManager.SignOutAsync();
         }
  

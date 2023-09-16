@@ -13,9 +13,9 @@ namespace BookStore.WebUI
 
 
 
-            var constr = builder.Configuration.GetConnectionString("BookSqlCon1");
+            var constr = builder.Configuration.GetConnectionString("BookSqlCon");
             builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(constr));
-            builder.Services.AddSession();
+            //builder.Services.AddSession();
             builder.Services.AddScoped<IListService, ListService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IBookSearchService, BookSearchService>();
@@ -67,7 +67,7 @@ namespace BookStore.WebUI
 
             app.UseAuthorization();
 
-            app.UseSession();
+            //app.UseSession();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
