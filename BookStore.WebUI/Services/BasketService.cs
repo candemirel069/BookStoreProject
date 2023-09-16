@@ -1,4 +1,5 @@
-﻿using BookStore.Data.Entities;
+﻿using BookStore.Common.Configurations;
+using BookStore.Data.Entities;
 using BookStore.Data.Entities.Identities;
 using BookStore.Data.Migrations;
 using BookStore.WebUI.Models;
@@ -39,7 +40,24 @@ namespace BookStore.WebUI.Services
                 .Select(b => b.BookId).ToList();
                 if (bookIds == null)
                 return result;
-
+            
+            var books = from basket in _dbContext.BasketItems.Include(x => x.Book)
+                 .Include(it => it.Book.Author).Include(x => x.Book.Campaign).Include(it => it.Book.Translator)
+                        where
+                        basket.AppUserId == _userService.GetUserId()
+                        orderby basket.Book.Name
+                        select new BasketItemViewModel()
+                        {
+                            Id = basket.Book.Id,
+                            Quatitiy = basket.Quantity,
+                            Name = basket.Book.Name,
+                            AuthorName = basket.Book.Author.FullName,
+                            TranslatorName = basket.Book.Translator.FullName,
+                            ImageUrl = MyApplicationConfig.ImageBaseUrl + basket.Book.ImageName,
+                            UnitPrice = basket.Book.Price,
+                            DiscountRate = basket.Book.Campaign.DiscountRate,
+                        };
+            result.Items = books.ToList();
             return result;
         }
         public void AddToBasket(int bookId)
@@ -85,7 +103,7 @@ namespace BookStore.WebUI.Services
 
         public int ItemCount()
         {
-            return _dbContext.BasketItems.Where(it => it.AppUserId == _userService.GetUserId()).Count();
+            return _dbContext.BasketItems.Where(it => it.AppUserId == _userService.GetUserId()).Sum(x=>x.Quantity);
            
         }
     }
